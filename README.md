@@ -7,8 +7,6 @@ A responsive website where students can explore upcoming campus events, search a
 
 ## Screenshots
 
-Add screenshots to a `screenshots/` folder and link them here:
-
 Desktop  
  <img width="944" height="499" alt="Screenshot 2026-11-03 223142" src="https://github.com/user-attachments/assets/a73ad8de-4194-4d3e-9541-c83d48f05033" />
  
