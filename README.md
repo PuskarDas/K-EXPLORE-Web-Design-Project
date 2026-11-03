@@ -12,7 +12,7 @@ Add screenshots to a `screenshots/` folder and link them here:
 | Desktop | Mobile |
 | --- | --- |
 | `<img width="944" height="499" alt="Screenshot 2026-11-03 223142" src="https://github.com/user-attachments/assets/a73ad8de-4194-4d3e-9541-c83d48f05033" />
-` | `<img width="845" height="1600" alt="WhatsApp Image 2026-11-03 at 10 34 57 PM" src="https://github.com/user-attachments/assets/4f5dca62-b2c5-4852-91d8-db212e8ee7ef" />
+`  `<img width="845" height="1600" alt="WhatsApp Image 2026-11-03 at 10 34 57 PM" src="https://github.com/user-attachments/assets/4f5dca62-b2c5-4852-91d8-db212e8ee7ef" />
 ` |
 
 ## Features
