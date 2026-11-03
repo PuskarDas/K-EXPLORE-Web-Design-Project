@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K-Explore | Discover and register for campus events</title>
+  <meta name="description" content="Browse upcoming campus events, see the details and register in under a minute.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Apply saved theme before paint to avoid a flash
+    try {
+      var t = localStorage.getItem('kexplore.theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#events">Skip to events</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="K-Explore home"><span class="brand-mark">K</span>Explore</a>
+    <nav aria-label="Main">
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList">Menu</button>
+      <ul id="navList">
+        <li><a href="#events">Events</a></li>
+        <li><a href="#register">Register</a></li>
+        <li><a href="#my-registrations">My tickets</a></li>
+      </ul>
+    </nav>
+    <button class="icon-btn" id="themeToggle" aria-label="Switch to dark mode" title="Toggle theme">
+      <span aria-hidden="true" id="themeIcon">☾</span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Your next campus event is closer than you think.</h1>
+        <p>Hackathons, workshops, cultural nights and sports. Browse what's coming, pick what you like, and grab a spot in under a minute.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#events">Browse events</a>
+          <a class="btn btn-ghost" href="#register">Register now</a>
+        </div>
+      </div>
+
+      <article class="ticket" id="nextTicket" aria-live="polite">
+        <div class="ticket-main">
+          <p class="ticket-label">Up next</p>
+          <h2 id="nextTitle">Loading…</h2>
+          <p class="ticket-meta" id="nextMeta"></p>
+          <div class="countdown" data-countdown-box id="nextCountdown" aria-label="Time left"></div>
+        </div>
+        <div class="ticket-stub">
+          <button class="btn btn-primary" id="nextBtn" type="button">Details</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" id="events" aria-labelledby="eventsTitle">
+      <div class="section-head">
+        <h2 id="eventsTitle">Upcoming events</h2>
+        <p id="resultCount" class="muted" aria-live="polite"></p>
+      </div>
+
+      <div class="toolbar">
+        <label class="search">
+          <span class="sr-only">Search events</span>
+          <input type="search" id="search" placeholder="Search by name, venue or keyword" autocomplete="off">
+        </label>
+        <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+      </div>
+
+      <div class="grid" id="eventGrid"></div>
+      <div class="empty" id="empty" hidden>
+        <h3>No events match your search</h3>
+        <p>Try a different keyword or switch the category back to All.</p>
+        <button class="btn btn-ghost" id="clearFilters" type="button">Clear filters</button>
+      </div>
+    </section>
+
+    <section class="section register" id="register" aria-labelledby="regTitle">
+      <div class="reg-intro">
+        <h2 id="regTitle">Save your spot</h2>
+        <p>Fill in your details and pick an event. Your ticket is saved in this browser, so you can find it again under My tickets.</p>
+      </div>
+
+      <div class="reg-panel">
+        <form id="regForm" novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+            <span class="error" data-error-for="name"></span>
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+            <span class="error" data-error-for="email"></span>
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile number" required>
+            <span class="error" data-error-for="phone"></span>
+          </div>
+          <div class="field">
+            <label for="eventSelect">Event</label>
+            <select id="eventSelect" name="event" required></select>
+            <span class="error" data-error-for="event"></span>
+          </div>
+          <button class="btn btn-primary" type="submit">Confirm registration</button>
+        </form>
+
+        <div class="confirm" id="confirm" role="status" hidden>
+          <div class="tick" aria-hidden="true">✓</div>
+          <h3>You're registered!</h3>
+          <p id="confirmText"></p>
+          <p class="muted">Ticket ID: <strong id="confirmId"></strong></p>
+          <button class="btn btn-ghost" id="againBtn" type="button">Register for another event</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="my-registrations" aria-labelledby="myTitle">
+      <div class="section-head">
+        <h2 id="myTitle">My tickets</h2>
+        <button class="btn btn-ghost small" id="clearAll" type="button" hidden>Remove all</button>
+      </div>
+      <ul class="tickets" id="myList"></ul>
+      <p class="muted" id="myEmpty">You haven't registered for anything yet. Pick an event above to get started.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>K-Explore · Web Designing final project · Built with HTML, CSS and JavaScript</p>
+  </footer>
+
+  <dialog id="eventDialog" aria-labelledby="dlgTitle">
+    <button class="icon-btn dlg-close" id="dlgClose" aria-label="Close details">✕</button>
+    <img id="dlgImg" alt="">
+    <div class="dlg-body">
+      <p class="badge" id="dlgCat"></p>
+      <h2 id="dlgTitle"></h2>
+      <dl class="facts">
+        <div><dt>When</dt><dd id="dlgWhen"></dd></div>
+        <div><dt>Where</dt><dd id="dlgWhere"></dd></div>
+        <div><dt>Entry</dt><dd id="dlgPrice"></dd></div>
+        <div><dt>Seats</dt><dd id="dlgSeats"></dd></div>
+      </dl>
+      <p id="dlgDesc"></p>
+      <div class="countdown" data-countdown-box id="dlgCountdown" aria-label="Time left"></div>
+      <button class="btn btn-primary" id="dlgRegister" type="button">Register for this event</button>
+    </div>
+  </dialog>
+
+  <script src="js/events.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
