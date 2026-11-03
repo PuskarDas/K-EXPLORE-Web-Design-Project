@@ -3,7 +3,7 @@
 A responsive website where students can explore upcoming campus events, search and filter them, read the details and register. Built with plain **HTML5, CSS3 and JavaScript** (no frameworks, no build step) for the K-Explore Web Designing task.
 
 - **Live site:** `https://k-explore-web-design-project.vercel.app`
-- **Repository:** `https://github.com/YOUR-USERNAME/k-explore`
+- **Repository:** `https://github.com/PuskarDas/K-EXPLORE-Web-Design-Project`
 
 ## Screenshots
 
